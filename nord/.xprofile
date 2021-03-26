@@ -3,6 +3,11 @@ export QT_IM_MODULE=fcitx
 export XMODIFIERS="@im=fcitx"
 export GLFW_IM_MODULE="ibus"
 export _JAVA_AWT_WM_NONREPARENTING=1
+e
 
 xautolock -time 10 -locker '~/.local/bin/lock' -corners ---- -cornersize 30 &
 xsettingsd &
+setxkbmap -option ctrl:swapcaps &
+xset r rate 375 50 &
+fcitx5 &
+picom &
