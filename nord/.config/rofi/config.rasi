@@ -3,9 +3,9 @@ configuration {
 	width: 800;
 	lines: 10;
 	columns: 2;
-	font: "SFNS Display 14";
+	font: "Fantasque Sans Mono Nerd Font 12";
 	show-icons: true;
 	icon-theme: "papirus";
-	theme: "~/.config/rofi/light.rasi";
+	theme: "~/.config/rofi/mytheme.rasi";
 	display-drun: "App";
 }
