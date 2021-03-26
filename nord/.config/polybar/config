@@ -16,7 +16,7 @@
 ;; Global WM Settings
 
 [global/wm]
-margin-bottom = 0
+margin-bottom = 1
 margin-top = 0
 
 include-file = ~/.config/polybar/colors
@@ -51,11 +51,11 @@ module-margin-left = 1
 module-margin-right = 1
 
 
-font-0 = "Liga SFMono Nerd Font:size=13;3"
+font-0 = "Inconsolata Nerd Font:size=12;3"
 font-1 = "LiterationMono Nerd Font:size=12;3"
 font-2 = NotoColorEmoji:pixelsize=8;1:fontformat=truetype:scale=10:antialias=true;3
 font-3 = Weather Icons:style=Regular:size=10;3
-font-4 = Sarasa UI SC:size=12;2
+font-4 = Noto Sans CJK TC:style=Regular:size=12;2
 
 
 modules-left = dwm
