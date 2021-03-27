@@ -73,11 +73,10 @@ static const Rule rules[] = {
      *	WM_CLASS(STRING) = instance, class
      *	WM_NAME(STRING) = title
      */
-    /* class                            instance                    title tags
-       mask     isfloating   monitor */
-    {"jetbrains-*", "JetBrains Toolbox", NULL, 1 << 1, 1, -1},
-    {"jetbrains-*", "sun-awt-X11-XFramePeer", NULL, 1 << 1, 0, -1},
-    {"jetbrains-*", "jetbrains-*", "win0", 1 << 1, 1, -1},
+    /* class                            instance                    title tags mask     isfloating   monitor */
+    {"jetbrains-*",                     "JetBrains Toolbox", NULL, 1 << 1, 1, -1},
+    {"jetbrains-*",                     "sun-awt-X11-XFramePeer", NULL, 1 << 1, 0, -1},
+    {"jetbrains-*",                     "jetbrains-*", "win0", 1 << 1, 1, -1},
     {"jetbrains-*", NULL, "Welcome to*", 1 << 1, 1, -1},
     {NULL, NULL, "Android Emulator - Pixel_3a_API_30_x86:5554", 1 << 1, 1, -1},
 
@@ -156,6 +155,7 @@ static const char *dmenucmd[] = {"dmenu_run_history", NULL};
 static const char *clipmenucmd[] = {"clipmenu", NULL};
 static const char *searchmenucmd[] = {"searchmenu", NULL};
 static const char *recordmenucmd[] = {"recordmenu", NULL};
+static const char *browsercmd[] = {"firefox", NULL};
 
 static const char *upvol[] = {"/usr/bin/pactl", "set-sink-volume", "0", "+3%",
                               NULL};
@@ -166,99 +166,95 @@ static const char *mutevol[] = {"/usr/bin/pactl", "set-sink-mute", "0",
 
 static Key keys[] = {
     /* modifier                     key             function        argument */
-    {MODKEY, XK_Return, spawn, {.v = termcmd}},
-    {MODKEY, XK_d, spawn, {.v = dmenucmd}},
-    {MODKEY, XK_p, spawn, {.v = rofidruncmd}},
-    {MODKEY, XK_c, spawn, {.v = clipmenucmd}},
-    {MODKEY, XK_s, spawn, {.v = searchmenucmd}},
-    {MODKEY, XK_r, spawn, {.v = recordmenucmd}},
-    {MODKEY, XK_w, spawn, {.v = windowswitchcmd}},
+    {MODKEY,                        XK_Return,      spawn,          {.v = termcmd}},
+    {MODKEY,                        XK_d,           spawn,          {.v = dmenucmd}},
+    {MODKEY,                        XK_p,           spawn,          {.v = rofidruncmd}},
+    {MODKEY,                        XK_c,           spawn,          {.v = clipmenucmd}},
+    {MODKEY,                        XK_s,           spawn,          {.v = searchmenucmd}},
+    {MODKEY,                        XK_r,           spawn,          {.v = recordmenucmd}},
+    {MODKEY,                        XK_w,           spawn,          {.v = windowswitchcmd}},
+    {MODKEY | ControlMask,          XK_f,           spawn,          {.v = browsercmd}},
 
-    {MODKEY, XK_b, togglebar, {0}},
-    {MODKEY | ControlMask, XK_m, focusmaster, {0}},
-    {MODKEY, XK_j, focusstack, {.i = +1}},
-    {MODKEY, XK_k, focusstack, {.i = -1}},
+    {MODKEY,                        XK_b,           togglebar,      {0}},
+    {MODKEY | ControlMask,          XK_m,           focusmaster,    {0}},
+    {MODKEY,                        XK_j,           focusstack,     {.i = +1}},
+    {MODKEY,                        XK_k,           focusstack,     {.i = -1}},
     //	{ MODKEY,                       XK_i,           incnmaster,     {.i = +1
     //} }, 	{ MODKEY,                       XK_o,           incnmaster, {.i
     //= -1 } },
-    {MODKEY, XK_h, setmfact, {.f = -0.05}},
-    {MODKEY, XK_l, setmfact, {.f = +0.05}},
-    {MODKEY | ControlMask, XK_Return, zoom, {0}},
-    {MODKEY, XK_Tab, view, {0}},
-    {MODKEY, XK_q, killclient, {0}},
-    {MODKEY, XK_y, tabmode, {-1}},
-    {MODKEY, XK_t, setlayout, {.v = &layouts[0]}},
-    {MODKEY, XK_f, setlayout, {.v = &layouts[1]}},
-    {MODKEY, XK_m, setlayout, {.v = &layouts[2]}},
-    {MODKEY, XK_g, setlayout, {.v = &layouts[3]}},
-    {MODKEY, XK_u, setlayout, {.v = &layouts[4]}},
-    {MODKEY, XK_i, setlayout, {.v = &layouts[5]}},
-    {MODKEY, XK_o, setlayout, {.v = &layouts[6]}},
-    {MODKEY, XK_space, setlayout, {0}},
-    {MODKEY | ShiftMask, XK_space, togglefloating, {0}},
-    {MODKEY, XK_0, view, {.ui = ~0}},
-    {MODKEY | ShiftMask, XK_0, tag, {.ui = ~0}},
-    {MODKEY, XK_comma, focusmon, {.i = -1}},
-    {MODKEY, XK_period, focusmon, {.i = +1}},
-    {MODKEY | ShiftMask, XK_comma, tagmon, {.i = -1}},
-    {MODKEY | ShiftMask, XK_period, tagmon, {.i = +1}},
-    {MODKEY, XK_F5, xrdb, {.v = NULL}},
+    {MODKEY,                        XK_h,           setmfact,       {.f = -0.05}},
+    {MODKEY,                        XK_l,           setmfact,       {.f = +0.05}},
+    {MODKEY | ControlMask,          XK_Return,      zoom,           {0}},
+    {MODKEY,                        XK_Tab,         view,           {0}},
+    {MODKEY,                        XK_q,           killclient,     {0}},
+    {MODKEY,                        XK_y,           tabmode,        {-1}},
+    {MODKEY,                        XK_t,           setlayout,      {.v = &layouts[0]}},
+    {MODKEY,                        XK_f,           setlayout,      {.v = &layouts[1]}},
+    {MODKEY,                        XK_m,           setlayout,      {.v = &layouts[2]}},
+    {MODKEY,                        XK_g,           setlayout,      {.v = &layouts[3]}},
+    {MODKEY,                        XK_u,           setlayout,      {.v = &layouts[4]}},
+    {MODKEY,                        XK_i,           setlayout,      {.v = &layouts[5]}},
+    {MODKEY,                        XK_o,           setlayout,      {.v = &layouts[6]}},
+    {MODKEY,                        XK_space,       setlayout,      {0}},
+    {MODKEY | ShiftMask,            XK_space,       togglefloating, {0}},
+    {MODKEY,                        XK_0,           view,           {.ui = ~0}},
+    {MODKEY | ShiftMask,            XK_0,           tag,            {.ui = ~0}},
+    {MODKEY | ShiftMask,            XK_f,           fullscreen,     {0}},
+    
+    /* Monitor */
+    {MODKEY,                        XK_comma,       focusmon,       {.i = -1}},
+    {MODKEY,                        XK_period,      focusmon,       {.i = +1}},
+    {MODKEY | ShiftMask,            XK_comma,       tagmon,         {.i = -1}},
+    {MODKEY | ShiftMask,            XK_period,      tagmon,         {.i = +1}},
+
+
+    {MODKEY,                        XK_F5,          xrdb,           {.v = NULL}},
 
     /* My Own App Start Ways */
-    {Mod1Mask, XK_c, spawn, CMD("visual-studio-code")},
-    {MODKEY, XK_e, spawn, CMD("microsoft-edge-dev")},
-    {MODKEY, XK_z, spawn, CMD("zathura")},
-    {MODKEY, XK_v, spawn, CMD("kitty -e nvim")},
-    {MODKEY | ShiftMask, XK_Return, spawn, CMD("alacritty -e zsh")},
-    {MODKEY | ShiftMask, XK_q, spawn, CMD("xkill")},
-    {MODKEY | ShiftMask, XK_s, spawn, CMD("flameshot gui")},
-    {MODKEY | ShiftMask, XK_n, spawn, CMD("thunar")},
-    {MODKEY | ShiftMask, XK_m, spawn,
-     CMD("kitty --class kitty-music -e ncmpcpp")},
-    {MODKEY | ShiftMask, XK_h, spawn, CMD("alacritty --class htop -e htop")},
-    {MODKEY | ShiftMask, XK_e, spawn, CMD("emacs")},
-    {MODKEY | ShiftMask, XK_v, spawn,
-     CMD("VBoxManage startvm 'Windows10' --type gui")},
+    {Mod1Mask,                      XK_c,           spawn,          CMD("visual-studio-code")},
+    {MODKEY | ShiftMask,            XK_e,           spawn,          CMD("microsoft-edge-dev")},
+    {MODKEY,                        XK_z,           spawn,          CMD("zathura")},
+    {MODKEY | ShiftMask,            XK_q,           spawn,          CMD("xkill")},
+    {MODKEY | ShiftMask,            XK_s,           spawn,          CMD("flameshot gui")},
+    {MODKEY | ShiftMask,            XK_n,           spawn,          CMD("thunar")},
+    {MODKEY | ShiftMask,            XK_m,           spawn,          CMD("kitty --class kitty-music -e ncmpcpp")},
+    {MODKEY | ShiftMask,            XK_h,           spawn,          CMD("alacritty --class htop -e htop")},
+    {MODKEY | ShiftMask,            XK_e,           spawn,          CMD("emacs")},
 
-    {Mod1Mask | ControlMask, XK_Delete, spawn, CMD("sh ~/.local/bin/lock")},
-    {Mod1Mask | ControlMask, XK_s, spawn, CMD("sh /usr/local/bin/suspend")},
+    {Mod1Mask | ControlMask,        XK_Delete,      spawn,          CMD("sh ~/.local/bin/lock")},
+    {Mod1Mask | ControlMask,        XK_s,           spawn,          CMD("sh /usr/local/bin/suspend")},
 
-    {Mod1Mask | ShiftMask, XK_p, spawn, CMD("sh ~/.dwmpobar")},
-
-    /*IDE start
-    { Mod1Mask,                     XK_i,           spawn,          CMD("idea")
-    }, { Mod1Mask,                     XK_l,           spawn, CMD("clion") }, {
-    Mod1Mask,                     XK_p,           spawn,          CMD("pycharm")
-    }, { Mod1Mask,                     XK_a,           spawn, CMD("studio") },
-    { Mod1Mask,                     XK_g,           spawn, CMD("goland") },
-    */
+    {Mod1Mask | ShiftMask,          XK_p,           spawn,          CMD("sh ~/.dwmpobar")},
 
     /* Switch nord and light */
-    {MODKEY | ControlMask, XK_n, spawn,
-     CMD("sh ~/.local/bin/switch-nord n dwm")},
-    {MODKEY | ControlMask, XK_l, spawn,
-     CMD("sh ~/.local/bin/switch-nord l dwm")},
+    {MODKEY | ControlMask, XK_n, spawn, CMD("sh ~/.local/bin/switch-nord n dwm")},
+    {MODKEY | ControlMask, XK_l, spawn, CMD("sh ~/.local/bin/switch-nord l dwm")},
     {MODKEY | ControlMask, XK_s, spawn, CMD("sh ~/.local/bin/switch-dwm")},
+
+    /* Brightness control */
+    {MODKEY | ShiftMask  , XK_i, spawn, CMD("light -A 10")},
+    {MODKEY | ShiftMask  , XK_o, spawn, CMD("light -U 10")},
 
     /* Mpd control */
     {MODKEY | ControlMask, XK_p, spawn, CMD("mpc toggle")},
     {MODKEY | ControlMask, XK_Left, spawn, CMD("mpc prev")},
     {MODKEY | ControlMask, XK_Right, spawn, CMD("mpc next")},
 
-    /* Touchpad */
-    {MODKEY | ControlMask, XK_e, spawn,
-     CMD("xinput enable 'DELL0828:00 06CB:7E7E Touchpad'")},
-    {MODKEY | ControlMask, XK_d, spawn,
-     CMD("xinput disable 'DELL0828:00 06CB:7E7E Touchpad'")},
-
     /* XF86Keys */
     {0, XF86XK_AudioMute, spawn, {.v = mutevol}},
     {0, XF86XK_AudioLowerVolume, spawn, {.v = downvol}},
     {0, XF86XK_AudioRaiseVolume, spawn, {.v = upvol}},
 
-    TAGKEYS(XK_1, 0) TAGKEYS(XK_2, 1) TAGKEYS(XK_3, 2) TAGKEYS(XK_4, 3)
-        TAGKEYS(XK_5, 4) TAGKEYS(XK_6, 5) TAGKEYS(XK_7, 6) TAGKEYS(XK_8, 7)
-            TAGKEYS(XK_9, 8){MODKEY | ShiftMask, XK_Escape, quit, {0}},
+    TAGKEYS(XK_1, 0)
+    TAGKEYS(XK_2, 1)
+    TAGKEYS(XK_3, 2)
+    TAGKEYS(XK_4, 3)
+    TAGKEYS(XK_5, 4)
+    TAGKEYS(XK_6, 5)
+    TAGKEYS(XK_7, 6)
+    TAGKEYS(XK_8, 7)
+    TAGKEYS(XK_9, 8)
+    {MODKEY | ShiftMask, XK_Escape, quit, {0}},
     {MODKEY | ShiftMask, XK_r, quit, {1}},
 };
 
