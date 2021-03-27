@@ -89,6 +89,10 @@ You can see all of 15 patches I have applied in `./patches` dir.
 
     a new layout with a wide master panel centered on the screen.
 
+-   dwm-actualfullscreen-20191112-cb3f58a.diff
+    
+    to toggle fullscreen easily
+
 <a id="orgdf423ab"></a>
 
 ## Keybinding
